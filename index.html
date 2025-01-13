@@ -1,27 +1,117 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CMU Graduate Theses</title>
+    <title>My Plot</title>
     <style>
-        /* Reset default margins and make html/body take full height */
-        html, body {
+        * {
             margin: 0;
             padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden; /* Prevents scrollbars */
+            box-sizing: border-box;
         }
 
-        /* Make iframe fill the entire viewport */
-        iframe {
-            display: block;
-            width: 100vw;
-            height: 100vh;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFFF7;
+            color: rgb(50, 50, 50);
+            width: 100%;
+            min-width: 1600px;  /* Ensure minimum width matches plot */
+        }
+
+        /* Header styling */
+        .header {
+            background-color: #FFFFF7;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+        }
+
+        /* Plot container */
+        .plot-container {
+            width: 1600px;  /* Match plot width */
+            height: 1200px; /* Match plot height */
+            margin: 1rem auto;  /* Center the container */
+            background-color: #FFFFF7;
+        }
+
+        .plot-container iframe {
+            width: 100%;
+            height: 100%;
             border: none;
+            background-color: #FFFFF7;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Description box */
+        .description-box {
+            background-color: #FFFFF7;
+            margin: 1rem auto;
+            padding: 2rem;
+            width: 1600px;  /* Match plot width */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .description-box h2 {
+            color: rgb(50, 50, 50);
+            margin-bottom: 1rem;
+        }
+
+        .description-box p {
+            color: rgb(50, 50, 50);
+            line-height: 1.6;
+        }
+
+        /* Responsive design for larger screens */
+        @media (min-width: 1601px) {
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .header {
+                width: 1600px;
+            }
+        }
+
+        /* Scroll behavior for smaller screens */
+        @media (max-width: 1600px) {
+            body {
+                overflow-x: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <iframe src="test_v2.html"></iframe>
+    <!-- Header with logos -->
+    <div class="header">
+        <img src="img/UL_CMU_Logo_Horiz_Red.png" alt="Left Logo" class="logo">
+        <img src="img/TRDA_logo.png" alt="Right Logo" class="logo">
+    </div>
+
+    <!-- Plot container -->
+    <div class="plot-container">
+        <iframe src="test_v2_light.html"></iframe>
+    </div>
+
+    <!-- Description box -->
+    <div class="description-box">
+        <h2>Plot Description</h2>
+        <p>
+            Here goes the plot description. This section can include 
+            information about the data, methodology, key findings, or any other relevant details. 
+	    I think I will include part of the methodology.
+            
+        </p>
+    </div>
 </body>
 </html>
