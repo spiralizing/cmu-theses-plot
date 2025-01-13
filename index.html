@@ -150,11 +150,13 @@
 
         ## Technical Details
         
+        **Feature Extraction**: Count vectorizer followed by Class-based TF-IDF transformation
         **Embedding Model**: We used `paraphrase-MiniLM-L6-v2` from sentence-transformers to generate 384-dimensional embeddings
         of thesis descriptions
-        **Dimensionality Reduction**: We used UMAP to reduce from 384 to 2 dimensions while preserving both local and global structure of the data.
-        **Feature Extraction**: Count vectorizer followed by Class-based TF-IDF transformation
-        **Clustering**: HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise)
+        **Clustering**: We used HDBSCAN to assign points to clusters in the embbeding space
+        **Dimensionality Reduction**: We used UMAP to reduce from 384 to 2 dimensions for visualization purposes
+        
+        
         <br>
         #### Acknowledgements
         The pipeline to build this visualization was developed using [BERTopic](https://maartengr.github.io/BERTopic/).
