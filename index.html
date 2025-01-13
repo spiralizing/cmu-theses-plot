@@ -104,34 +104,6 @@
             }
         }
     </style>
-    <!-- Add marked.js before your other scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.12/marked.min.js"></script>
-    
-    <script>
-        function loadMarkdownContent() {
-            console.log('loadMarkdownContent function is running');
-            const descriptionContent = document.getElementById('description-content');
-            console.log('Original content:', descriptionContent.innerHTML);
-            const markdown = descriptionContent.innerHTML;
-            const parsedContent = marked.parse(markdown.trim());
-            console.log('Parsed content:', parsedContent);
-            descriptionContent.innerHTML = parsedContent;
-        }
-
-        // Modified event listener to ensure it runs after everything is loaded
-        document.addEventListener('DOMContentLoaded', loadMarkdownContent);
-    </script>
-    
-    <!-- Your MathJax config can go after -->
-    <script>
-        MathJax.Hub.Config({
-            tex2jax: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true
-            }
-        });
-    </script>
 </head>
 <body>
     <!-- Header with logos -->
@@ -150,41 +122,99 @@
         <div id="description-content">
         # What am I looking at?
         
-        # CMU Graduate Theses Topic Visualization
-
         This visualization shows a representation of all public graduate theses hosted in KiltHub.
-        We extracted the abstract for each document and mapped it into a semantic representation of high dimensionality and reduced it 
-        into 2 dimensions.
-        The plot demonstrates how thesis topics are distributed in a semantic space,  with each point representing a thesis document and its 
-        relationship to others.
-
+        We extracted the abstract for each document and mapped it into a semantic representation of high dimensionality and reduced it into 2 dimensions.
+        The plot demonstrates how thesis topics are distributed in a semantic space,  with each point representing a thesis document and its relationship to others.
+        <br>
         ## How to interact with the visualization
 
         Try zooming in and out to separate topics, hovering over points to investigate thesis' titles. 
         Click on colleges to remove or add them in the plot.
-        This way you can: 
-        - Explore what problems have been explored by students across different colleges and topics.
-        - Find topic regions with potential for new research and collaborations.
-
+        <br>
+        ## This way you can
+    &nbsp;&nbsp;&nbsp; * Explore what problems have been explored by students across different colleges and topics.
+    &nbsp;&nbsp;&nbsp; * Find topic regions with potential for new research and collaborations.
+    &nbsp;&nbsp;&nbsp; * Identify interdisciplinary research areas.
+        <br>
         ## How to Interpret the Visualization
 
-        - **Points**: Each point represents a thesis document embedded in a high-dimensional space and projected down to 2D
-        - **Clusters**: Groups of points represent semantically similar documents that share common research themes
-        - **Distance**: The closer two points are, the more semantically similar their content
-        - **Density**: Dense areas suggest well-established research themes, while sparse areas may indicate unique or
+        **Points**: Each point represents a thesis document embedded in a high-dimensional space and projected down to 2D
+
+        **Clusters**: Groups of points represent semantically similar documents that share common research themes
+
+        **Distance**: The closer two points are, the more semantically similar their content
+
+        **Density**: Dense areas suggest well-established research themes, while sparse areas may indicate unique or
         interdisciplinary work
-        
+        <br>
+
         ## Technical Details
         
-        - **Embedding Model**: Used `paraphrase-MiniLM-L6-v2` from sentence-transformers to generate 384-dimensional embeddings
+        **Embedding Model**: We used `paraphrase-MiniLM-L6-v2` from sentence-transformers to generate 384-dimensional embeddings
         of thesis descriptions
-        - **Dimensionality Reduction**: We used UMAP to reduce from 384 to 2 dimensions while preserving both local and global structure of the data.
-        - **Feature Extraction**: Count vectorizer followed by Class-based TF-IDF transformation
-        - **Clustering**: HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise)
-
-        ## Acknowledgements
+        **Dimensionality Reduction**: We used UMAP to reduce from 384 to 2 dimensions while preserving both local and global structure of the data.
+        **Feature Extraction**: Count vectorizer followed by Class-based TF-IDF transformation
+        **Clustering**: HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise)
+        <br>
+        #### Acknowledgements
         The pipeline to build this visualization was developed using [BERTopic](https://maartengr.github.io/BERTopic/).
         </div>
     </div>
+        <!-- Load marked.js before your script -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.12/marked.min.js"></script>
+        
+        <!-- Modified script for markdown processing -->
+        <script>
+            // Wait for both DOM and marked.js to be ready
+            window.addEventListener('load', function () {
+                if (typeof marked === 'undefined') {
+                    console.error('marked.js not loaded');
+                    return;
+                }
+
+                try {
+                    const descriptionContent = document.getElementById('description-content');
+                    if (!descriptionContent) {
+                        console.error('description-content element not found');
+                        return;
+                    }
+
+                    // Configure marked options for better security and formatting
+                    marked.setOptions({
+                        breaks: true,
+                        gfm: true,
+                        headerIds: true,
+                        sanitize: false
+                    });
+
+                    const markdown = descriptionContent.innerHTML;
+                    console.log('Original content:', markdown);
+
+                    // Clean up the markdown content
+                    const cleanMarkdown = markdown.trim()
+                        .replace(/^\s+/gm, '')  // Remove leading whitespace
+                        .replace(/\n\s+/g, '\n');  // Clean up extra whitespace
+
+                    const parsedContent = marked.parse(cleanMarkdown);
+                    console.log('Parsed content:', parsedContent);
+
+                    descriptionContent.innerHTML = parsedContent;
+                } catch (error) {
+                    console.error('Error processing markdown:', error);
+                }
+            });
+        </script>
+        
+        <!-- If you need MathJax, load it properly -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script>
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true
+                }
+            });
+        </script>
 </body>
 </html>
