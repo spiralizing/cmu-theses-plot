@@ -91,6 +91,20 @@
             }
         }
     </style>
+        <script>
+            // Configure MathJax
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true
+                }
+            });
+
+
+            // Wait for both DOM and scripts to load
+            window.onload = loadMarkdownContent;
+        </script>
 </head>
 <body>
     <!-- Header with logos -->
@@ -106,11 +120,13 @@
 
     <!-- Description box -->
     <div class="description-box">
-        <h2>What am I looking at?</h2>
-        <p>
-            Here is the plot description, will include information about the data, part of the methodology and probably some other references to CMU Libraries links, etc. 
+        <div id="description-content">
+            # Topic Modeling Results
             
-        </p>
+            This visualization represents the distribution of documents across different topics. Each point represents a document,
+            and the colors indicate different colleges.
+
+        </div>
     </div>
 </body>
 </html>
