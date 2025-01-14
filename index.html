@@ -122,14 +122,16 @@
         <div id="description-content">
         # What am I looking at?
         
-        This visualization shows a representation of all public graduate theses hosted in KiltHub.
+        This visualization shows a representation of all public graduate theses hosted in [KiltHub](https://kilthub.cmu.edu/).
         We extracted the abstract for each document and mapped it into a semantic representation of high dimensionality and reduced it into 2 dimensions.
         The plot demonstrates how thesis topics are distributed in a semantic space,  with each point representing a thesis document and its relationship to others.
         <br>
         ## How to interact with the visualization
 
-        Try zooming in and out to separate topics, hovering over points to investigate thesis' titles. 
-        Click on colleges to remove or add them in the plot.
+        Try:
+    &nbsp;&nbsp;&nbsp;    * Zooming in and out to separate topics 
+    &nbsp;&nbsp;&nbsp;    * Hovering over the points to investigate their attributes:titles, colleges, and topics. 
+    &nbsp;&nbsp;&nbsp;    * Clicking on colleges to remove or add them in the plot.
         <br>
         ## This way you can
     &nbsp;&nbsp;&nbsp; * Explore what problems have been explored by students across different colleges and topics.
@@ -151,10 +153,10 @@
         ## Technical Details
         
         **Feature Extraction**: Count vectorizer followed by Class-based TF-IDF transformation
-        **Embedding Model**: We used `paraphrase-MiniLM-L6-v2` from sentence-transformers to generate 384-dimensional embeddings
+        **Embedding Model**:  `paraphrase-MiniLM-L6-v2` from [sentence-transformers](https://huggingface.co/sentence-transformers) to generate 384-dimensional embeddings
         of thesis descriptions
-        **Clustering**: We used HDBSCAN to assign points to clusters in the embbeding space
-        **Dimensionality Reduction**: We used UMAP to reduce from 384 to 2 dimensions for visualization purposes
+        **Clustering Method**: [HDBSCAN](https://hdbscan.readthedocs.io/en/latest/index.html) to assign points to clusters in the embbeding space
+        **Dimensionality Reduction**: We used [UMAP](https://umap-learn.readthedocs.io/en/latest/) to reduce from 384 to 2 dimensions for visualization purposes
         
         
         <br>
