@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>CMU Theses Semantic Map</title>
 
@@ -15,7 +16,7 @@
             background-color: #FFFFF7;
             color: rgb(50, 50, 50);
             width: 100%;
-            min-width: 1600px;  /* Ensure minimum width matches plot */
+            min-width: 1600px;
         }
 
         /* Header styling */
@@ -25,7 +26,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             width: 100%;
         }
 
@@ -34,11 +35,23 @@
             width: auto;
         }
 
+        /* Headline styling */
+        .headline {
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: rgb(50, 50, 50);
+            background-color: #FFFFF7;
+            margin: 0 auto;
+            width: 100%;
+        }
+
         /* Plot container */
         .plot-container {
-            width: 1601px;  /* Match plot width */
-            height: 1200px; /* Match plot height */
-            margin: 1rem auto;  /* Center the container */
+            width: 1601px;
+            height: 1200px;
+            margin: 1rem auto;
             background-color: #FFFFF7;
         }
 
@@ -46,19 +59,19 @@
             width: 100%;
             height: 100%;
             border: none;
-	    overflow: hidden; /* added this to test if removes the scrolls */
+            overflow: hidden;
             background-color: #FFFFF7;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Description box */
+        /* Rest of your existing styles... */
         .description-box {
             background-color: #FFFFF7;
             margin: 1rem auto;
             padding: 2rem;
-            width: 1600px;  /* Match plot width */
+            width: 1600px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(0, 0, 0, 0.2);
         }
 
@@ -80,24 +93,29 @@
             line-height: 1.6;
             color: rgb(50, 50, 50);
         }
+
         #description-content {
             font-size: 1.1rem;
             line-height: 1.6;
         }
-        /* Responsive design for larger screens */
+
+        /* Responsive design */
         @media (min-width: 1601px) {
             body {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .header {
+                width: 1600px;
+            }
+
+            .headline {
                 width: 1600px;
             }
         }
 
-        /* Scroll behavior for smaller screens */
         @media (max-width: 1600px) {
             body {
                 overflow-x: auto;
@@ -105,6 +123,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header with logos -->
     <div class="header">
@@ -112,113 +131,119 @@
         <img src="img/TRDA_logo.png" alt="TRDA" class="logo">
     </div>
 
-    <!-- Plot container -->
+    <!-- Added headline -->
+    <div class="headline">
+        Leveraging AI models for knowledge discovery
+    </div>
+
+    <!-- Rest of your existing content... -->
     <div class="plot-container">
         <iframe src="test_v2_light.html" scrolling="no"></iframe>
     </div>
 
-    <!-- Description box -->
     <div class="description-box">
         <div id="description-content">
-        # What am I looking at?
-        
-        This visualization shows a representation of all public graduate theses hosted in [KiltHub](https://kilthub.cmu.edu/).
-        We extracted the abstract for each document and mapped it into a semantic representation of high dimensionality and reduced it into 2 dimensions.
-        The plot demonstrates how thesis topics are distributed in a semantic space,  with each point representing a thesis document and the distance between them represents their 'semantic proximity'.
-        <br>
-        ## How to interact with the visualization
+            # What am I looking at?
 
-        Try:
-    &nbsp;&nbsp;&nbsp;    * Zooming in and out to separate topics 
-    &nbsp;&nbsp;&nbsp;    * Hovering over the points to investigate their attributes:titles, colleges, and topics. 
-    &nbsp;&nbsp;&nbsp;    * Clicking on colleges to remove or add them in the plot.
-        <br>
-        ## This way you can
-    &nbsp;&nbsp;&nbsp; * Explore what problems have been explored by students across different colleges and topics.
-    &nbsp;&nbsp;&nbsp; * Find topic regions with potential for new research and collaborations.
-    &nbsp;&nbsp;&nbsp; * Identify interdisciplinary research areas.
-        <br>
-        ## How to Interpret the Visualization
+            This visualization shows a representation of all public graduate theses hosted in
+            [KiltHub](https://kilthub.cmu.edu/).
+            We extracted the abstract for each document and mapped it into a semantic representation of high
+            dimensionality and reduced it into 2 dimensions.
+            The plot demonstrates how thesis topics are distributed in a semantic space, with each point representing a
+            thesis document and the distance between them represents their ['semantic
+            proximity'](https://en.wikipedia.org/wiki/Semantic_similarity).
+            <br>
+            ## How to interact with the visualization
 
-        **Points**: Each point represents a thesis document embedded in a high-dimensional space and projected down to 2D
+            Try:
+            &nbsp;&nbsp;&nbsp; * Zooming in and out to separate topics
+            &nbsp;&nbsp;&nbsp; * Hovering over the points to investigate their attributes:titles, colleges, and topics.
+            &nbsp;&nbsp;&nbsp; * Clicking on colleges to remove or add them in the plot.
+            <br>
+            ## This way you can
+            &nbsp;&nbsp;&nbsp; * Explore what problems have been explored by students across different colleges and
+            topics.
+            &nbsp;&nbsp;&nbsp; * Find topic regions with potential for new research and collaborations.
+            &nbsp;&nbsp;&nbsp; * Identify interdisciplinary research areas.
+            <br>
+            ## How to Interpret the Visualization
 
-        **Clusters**: Groups of points represent semantically similar documents that share common research themes
+            **Points**: Each point represents a thesis document embedded in a high-dimensional space and projected down
+            to 2D
 
-        **Distance**: The closer two points are, the more semantically similar their content
+            **Clusters**: Groups of points represent semantically similar documents that share common research themes
 
-        **Density**: Dense areas suggest well-established research fields, while sparse areas may indicate uncommon research fields or
-        interdisciplinary and unexplored research areas
-        <br>
+            **Distance**: The closer two points are, the more semantically similar their content
 
-        ## Technical Details
-        
-        **Feature Extraction**: Count vectorizer followed by Class-based TF-IDF transformation
-        **Embedding Model**:  `paraphrase-MiniLM-L6-v2` from [sentence-transformers](https://huggingface.co/sentence-transformers) to generate 384-dimensional embeddings
-        of thesis descriptions
-        **Clustering Method**: [HDBSCAN](https://hdbscan.readthedocs.io/en/latest/index.html) to assign points to clusters in the embbeding space
-        **Dimensionality Reduction**: We used [UMAP](https://umap-learn.readthedocs.io/en/latest/) to reduce from 384 to 2 dimensions for visualization purposes
-        
-        
-        <br>
-        #### Acknowledgements
-        The pipeline to build this visualization was developed using [BERTopic](https://maartengr.github.io/BERTopic/).
+            **Density**: Dense areas suggest well-established research fields, while sparse areas may indicate uncommon
+            research fields or interdisciplinary and unexplored research areas
+            <br>
+
+            ## Technical Details
+
+            **Feature Extraction**: Count vectorizer followed by Class-based TF-IDF transformation
+            **Embedding Model**: `paraphrase-MiniLM-L6-v2` from
+            [sentence-transformers](https://huggingface.co/sentence-transformers) to generate 384-dimensional embeddings
+            of thesis descriptions
+            **Clustering Method**: [HDBSCAN](https://hdbscan.readthedocs.io/en/latest/index.html) to assign points to
+            clusters in the embbeding space
+            **Dimensionality Reduction**: We used [UMAP](https://umap-learn.readthedocs.io/en/latest/) to reduce from
+            384 to 2 dimensions for visualization purposes
+
+
+            <br>
+            #### Acknowledgements
+            The pipeline to build this visualization was developed using
+            [BERTopic](https://maartengr.github.io/BERTopic/).
         </div>
     </div>
-        <!-- Load marked.js before your script -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.12/marked.min.js"></script>
-        
-        <!-- Modified script for markdown processing -->
-        <script>
-            // Wait for both DOM and marked.js to be ready
-            window.addEventListener('load', function () {
-                if (typeof marked === 'undefined') {
-                    console.error('marked.js not loaded');
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.12/marked.min.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof marked === 'undefined') {
+                console.error('marked.js not loaded');
+                return;
+            }
+
+            try {
+                const descriptionContent = document.getElementById('description-content');
+                if (!descriptionContent) {
+                    console.error('description-content element not found');
                     return;
                 }
 
-                try {
-                    const descriptionContent = document.getElementById('description-content');
-                    if (!descriptionContent) {
-                        console.error('description-content element not found');
-                        return;
-                    }
+                marked.setOptions({
+                    breaks: true,
+                    gfm: true,
+                    headerIds: true,
+                    sanitize: false
+                });
 
-                    // Configure marked options for better security and formatting
-                    marked.setOptions({
-                        breaks: true,
-                        gfm: true,
-                        headerIds: true,
-                        sanitize: false
-                    });
+                const markdown = descriptionContent.innerHTML;
+                const cleanMarkdown = markdown.trim()
+                    .replace(/^\s+/gm, '')
+                    .replace(/\n\s+/g, '\n');
 
-                    const markdown = descriptionContent.innerHTML;
-                    console.log('Original content:', markdown);
+                const parsedContent = marked.parse(cleanMarkdown);
+                descriptionContent.innerHTML = parsedContent;
+            } catch (error) {
+                console.error('Error processing markdown:', error);
+            }
+        });
+    </script>
 
-                    // Clean up the markdown content
-                    const cleanMarkdown = markdown.trim()
-                        .replace(/^\s+/gm, '')  // Remove leading whitespace
-                        .replace(/\n\s+/g, '\n');  // Clean up extra whitespace
-
-                    const parsedContent = marked.parse(cleanMarkdown);
-                    console.log('Parsed content:', parsedContent);
-
-                    descriptionContent.innerHTML = parsedContent;
-                } catch (error) {
-                    console.error('Error processing markdown:', error);
-                }
-            });
-        </script>
-        
-        <!-- If you need MathJax, load it properly -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script>
-            MathJax.Hub.Config({
-                tex2jax: {
-                    inlineMath: [['$', '$'], ['\\(', '\\)']],
-                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                    processEscapes: true
-                }
-            });
-        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            }
+        });
+    </script>
 </body>
+
 </html>
