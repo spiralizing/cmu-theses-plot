@@ -35,6 +35,21 @@
             width: auto;
         }
 
+        /* Banner section styling */
+        .banner-section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 0;
+            background-color: #FFFFF7;
+        }
+
+        .banner-logo {
+            max-height: 250px;
+            width: auto;
+        }
+
         /* Headline styling */
         .headline {
             text-align: center;
@@ -99,7 +114,7 @@
             line-height: 1.6;
         }
 
-        /* Responsive design */
+        /* responsive design */
         @media (min-width: 1601px) {
             body {
                 display: flex;
@@ -108,6 +123,10 @@
             }
 
             .header {
+                width: 1600px;
+            }
+
+            .banner-section {
                 width: 1600px;
             }
 
@@ -129,6 +148,10 @@
     <div class="header">
         <img src="img/CMU_Libraries_logo.png" alt="CMU Libraries" class="logo">
         <img src="img/TRDA_logo.png" alt="TRDA" class="logo">
+    </div>
+
+    <div class="banner-section">
+        <img src="img/LDW_logo.png" alt="Banner Logo" class="banner-logo">
     </div>
 
     <!-- Added headline -->
@@ -184,6 +207,10 @@
             <br>
             #### Acknowledgements
             The pipeline to build this visualization was developed using [BERTopic](https://maartengr.github.io/BERTopic/).
+            <br>
+            ---
+            This project is a collaboration between the University Libraries and the Tartan Research Data Alliance. Built with love
+            for the Love Data Week 2025 and the CMU community.
         </div>
     </div>
 
