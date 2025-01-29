@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <!-- Add this in the head section -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
     <title>CMU Theses Semantic Map</title>
 
     <style>
@@ -79,7 +81,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Rest of your existing styles... */
+        /* Description box styling */
         .description-box {
             background-color: #FFFFF7;
             margin: 1rem auto;
@@ -90,28 +92,80 @@
             border: 1px solid rgba(0, 0, 0, 0.2);
         }
 
-        .description-box h1 {
-            font-size: 2em;
-            margin-bottom: 1rem;
+        /* Markdown styling */
+        .prose {
+            max-width: none;
             color: rgb(50, 50, 50);
         }
 
-        .description-box h2 {
-            font-size: 1.5em;
-            margin-bottom: 0.8rem;
-            color: rgb(50, 50, 50);
+        .prose h1 {
+            font-size: 2.5em;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            font-weight: bold;
         }
 
-        .description-box p,
-        #description-content p {
-            font-size: 1.1rem;
+        .prose h2 {
+            font-size: 1.8em;
+            margin-top: 1.2em;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .prose h3 {
+            font-size: 1.4em;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .prose p {
+            margin-bottom: 1em;
             line-height: 1.6;
-            color: rgb(50, 50, 50);
+            font-size: 1.1em;
         }
 
-        #description-content {
-            font-size: 1.1rem;
+        .prose ul {
+            margin-left: 1.5em;
+            margin-bottom: 1em;
+            list-style-type: disc;
+        }
+
+        .prose li {
+            margin-bottom: 0.5em;
             line-height: 1.6;
+            font-size: 1.1em;
+        }
+
+        .prose em {
+            font-style: italic;
+        }
+
+        .prose strong {
+            font-weight: bold;
+        }
+
+        .prose hr {
+            margin: 2em 0;
+            border: 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .prose code {
+            background-color: #f5f5f5;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .prose a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .prose a:hover {
+            text-decoration: underline;
         }
 
         /* responsive design */
@@ -159,76 +213,69 @@
         Leveraging AI technology for knowledge exploration and discovery
     </div>
 
-    <!-- Rest of your existing content... -->
+    <!-- Plot container -->
     <div class="plot-container">
         <iframe src="web_viz.html" scrolling="no"></iframe>
     </div>
 
-    <div class="description-box">
-        <div id="description-content">
-            # What am I looking at?
+    <!-- Description box - now using React -->
+    <div id="description-root" class="description-box"></div>
 
-            This visualization shows a representation of all public graduate theses hosted in [KiltHub](https://kilthub.cmu.edu/).
-            We extracted the abstract for each document and mapped it into a semantic representation of high dimensionality and reduced it into 2 dimensions.
-            The plot demonstrates how thesis topics are distributed in a semantic space, with each point representing a
-            thesis document and the distance between them represents their ['semantic proximity'](https://en.wikipedia.org/wiki/Semantic_similarity).
-            <br>
-            ## How to interact with the visualization
-
-            Try:
-            &nbsp;&nbsp;&nbsp; * Zooming in and out to separate topics
-            &nbsp;&nbsp;&nbsp; * Hovering over the points to investigate their attributes:titles, colleges, and topics.
-            &nbsp;&nbsp;&nbsp; * Clicking on colleges to remove or add them in the plot.
-            <br>
-            ## This way you can
-            &nbsp;&nbsp;&nbsp; * Explore what problems have been explored by students across different colleges and topics.
-            &nbsp;&nbsp;&nbsp; * Find topic regions with potential for new research and collaborations.
-            &nbsp;&nbsp;&nbsp; * Identify interdisciplinary research areas.
-            <br>
-            ## How to Interpret the Visualization
-
-            **Points**: Each point represents a thesis document embedded in a high-dimensional space and projected down to 2D
-
-            **Clusters**: Groups of points represent semantically similar documents that share common research themes
-
-            **Distance**: The closer two points are, the more semantically similar their content
-
-            **Density**: Dense areas suggest well-established research fields, while sparse areas may indicate uncommon research fields or interdisciplinary and unexplored research areas
-            <br>
-
-            ## Technical Details
-
-            **Feature Extraction**: Count vectorizer followed by Class-based TF-IDF transformation
-            **Embedding Model**: `paraphrase-MiniLM-L6-v2` from [sentence-transformers](https://huggingface.co/sentence-transformers) to generate 384-dimensional embeddings of thesis descriptions
-            **Clustering Method**: [HDBSCAN](https://hdbscan.readthedocs.io/en/latest/index.html) to assign points to clusters in the embbeding space
-            **Dimensionality Reduction**: We used [UMAP](https://umap-learn.readthedocs.io/en/latest/) to reduce from 384 to 2 dimensions for visualization purposes
-
-
-            <br>
-            #### Acknowledgements
-            The pipeline to build this visualization was developed using [BERTopic](https://maartengr.github.io/BERTopic/).
-            <br>
-            ---
-            This project is a collaboration between the University Libraries and the Tartan Research Data Alliance. Built with love
-            for the Love Data Week 2025 and the CMU community.
-        </div>
-    </div>
-
-    <!-- Scripts -->
+    <!-- Load React and dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.12/marked.min.js"></script>
-    <script>
-        window.addEventListener('load', function () {
-            if (typeof marked === 'undefined') {
-                console.error('marked.js not loaded');
-                return;
-            }
 
-            try {
-                const descriptionContent = document.getElementById('description-content');
-                if (!descriptionContent) {
-                    console.error('description-content element not found');
-                    return;
-                }
+    <!-- React component script -->
+    <script type="text/babel">
+        const MarkdownDescription = () => {
+            const [content, setContent] = useState('');
+
+            useEffect(() => {
+                const markdownContent = `
+# Explore the Universe of Graduate Research at CMU! 🚀
+## Introducing the KiltHub Thesis Explorer 🔭
+Ever wondered how your research connects to work across different departments? Curious about unexplored areas in your field? We're excited to introduce a new interactive visualization tool that maps the entire landscape of graduate research at CMU!
+
+## What You'll See 👀
+Imagine a star map, but instead of stars, you're looking at every graduate thesis in KiltHub. Each point represents a thesis, and the space between them shows how related their topics are – the closer together, the more similar their research themes. This creates a fascinating "galaxy" of CMU graduate research where you can:
+- Discover unexpected connections between different fields  
+- Find potential collaborators across departments  
+- Identify unique research opportunities  
+- Explore the evolution of research themes across colleges
+
+## How to Explore 🔍
+### Interactive Features  
+- ***Zoom:*** Like Google Maps, but for research! Zoom in to explore specific research clusters or out to see the big picture  
+- ***Hover:*** Mouse over any point to see thesis details, including:  
+  - Title  
+  - College  
+  - Research topics  
+- ***Filter:*** Click on college names to show or hide different departments 
+
+### Research Insights ⚛️  
+- Find clusters of related work across different colleges  
+- Spot gaps between fields that might inspire new research directions  
+- Identify potential interdisciplinary collaboration opportunities  
+- See how your research interests connect to other fields
+
+## Behind the Scenes 🛠️
+This visualization was created using state-of-the-art natural language processing techniques that transform thesis abstracts into a semantic map. Think of it as a GPS system for research topics – it captures the *semantic* meaning of the research, not just keywords, allowing it to show conceptual relationships between different works.
+
+## Ready to Explore? ⭐
+Visit this site to start exploring the CMU's graduate theses landscape!
+
+## Technical Details  
+**Feature Extraction**: Count vectorizer followed by Class-based TF-IDF transformation  
+**Embedding Model**: \`paraphrase-MiniLM-L6-v2\` from [sentence-transformers](https://huggingface.co/sentence-transformers) to generate 384-dimensional embeddings of thesis descriptions  
+**Clustering Method**: [HDBSCAN](https://hdbscan.readthedocs.io/en/latest/index.html) to assign points to clusters in the embedding space  
+**Dimensionality Reduction**: We used [UMAP](https://umap-learn.readthedocs.io/en/latest/) to reduce from 384 to 2 dimensions for visualization purposes
+
+---------------
+*This project is a collaboration between the University Libraries and the Tartan Research Data Alliance. Built with love for the Love Data Week 2025 and the CMU community.*
+
+TRDA members: Chekah Arora and Alfredo González-Espinoza
+                `;
 
                 marked.setOptions({
                     breaks: true,
@@ -237,19 +284,27 @@
                     sanitize: false
                 });
 
-                const markdown = descriptionContent.innerHTML;
-                const cleanMarkdown = markdown.trim()
-                    .replace(/^\s+/gm, '')
-                    .replace(/\n\s+/g, '\n');
+                const parsedContent = marked(markdownContent);
+                setContent(parsedContent);
+            }, []);
 
-                const parsedContent = marked.parse(cleanMarkdown);
-                descriptionContent.innerHTML = parsedContent;
-            } catch (error) {
-                console.error('Error processing markdown:', error);
-            }
-        });
+            return (
+                <div 
+                    id="description-content"
+                    className="prose max-w-none"
+                    dangerouslySetInnerHTML={{ __html: content }}
+                />
+            );
+        };
+
+        // Render the React component
+        ReactDOM.render(
+            React.createElement(MarkdownDescription),
+            document.getElementById('description-root')
+        );
     </script>
 
+    <!-- MathJax for any mathematical notation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script>
         MathJax.Hub.Config({
