@@ -259,10 +259,7 @@ Imagine a star map, but instead of stars, you're looking at every graduate thesi
 ## Behind the Scenes 🛠️
 This visualization was created using state-of-the-art natural language processing techniques that transform thesis abstracts into a semantic map. Think of it as a GPS system for research topics – it captures the *semantic* meaning of the research, not just keywords, allowing it to show conceptual relationships between different works.
 
-## Ready to Explore? ⭐
-Visit this site to start exploring the CMU's graduate theses landscape!
-
-## Technical Details  
+### Technical Details  
 **Feature Extraction**: Count vectorizer followed by Class-based TF-IDF transformation  
 **Embedding Model**: \`paraphrase-MiniLM-L6-v2\` from [sentence-transformers](https://huggingface.co/sentence-transformers) to generate 384-dimensional embeddings of thesis descriptions  
 **Clustering Method**: [HDBSCAN](https://hdbscan.readthedocs.io/en/latest/index.html) to assign points to clusters in the embedding space  
