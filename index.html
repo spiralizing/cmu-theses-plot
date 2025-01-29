@@ -2,8 +2,6 @@
 <html>
 
 <head>
-    <!-- Add this in the head section -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
     <title>CMU Theses Semantic Map</title>
 
     <style>
@@ -195,6 +193,10 @@
             }
         }
     </style>
+    <!-- Load dependencies in the correct order -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.12/marked.min.js"></script>
 </head>
 
 <body>
@@ -227,11 +229,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.12/marked.min.js"></script>
 
     <!-- React component script -->
-    <script type="text/babel">
-        const MarkdownDescription = () => {
-            const [content, setContent] = useState('');
+    <script>
+        // Create the component using React.createElement instead of JSX
+        function MarkdownDescription() {
+            // Create state manually since we're not using hooks
+            const [content, setContent] = React.useState('');
 
-            useEffect(() => {
+            React.useEffect(() => {
                 const markdownContent = `
 # Explore the Universe of Graduate Research at CMU! 🚀
 ## Introducing the KiltHub Thesis Explorer 🔭
@@ -288,23 +292,24 @@ TRDA members: Chekah Arora and Alfredo González-Espinoza
                 setContent(parsedContent);
             }, []);
 
-            return (
-                <div 
-                    id="description-content"
-                    className="prose max-w-none"
-                    dangerouslySetInnerHTML={{ __html: content }}
-                />
-            );
-        };
+            // Return the element
+            return React.createElement('div', {
+                id: 'description-content',
+                className: 'prose max-w-none',
+                dangerouslySetInnerHTML: { __html: content }
+            });
+        }
 
-        // Render the React component
-        ReactDOM.render(
-            React.createElement(MarkdownDescription),
-            document.getElementById('description-root')
-        );
+        // Wait for DOM to load before rendering
+        window.addEventListener('DOMContentLoaded', function() {
+            ReactDOM.render(
+                React.createElement(MarkdownDescription),
+                document.getElementById('description-root')
+            );
+        });
     </script>
 
-    <!-- MathJax for any mathematical notation -->
+    <!-- MathJax for any mathematical notation 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script>
         MathJax.Hub.Config({
@@ -315,6 +320,7 @@ TRDA members: Chekah Arora and Alfredo González-Espinoza
             }
         });
     </script>
+    -->
 </body>
 
 </html>
