@@ -220,23 +220,16 @@
         <iframe src="web_viz.html" scrolling="no"></iframe>
     </div>
 
-    <!-- Description box - now using React -->
-    <div id="description-root" class="description-box"></div>
+    <div class="description-box">
+        <div id="description-content" class="prose max-w-none"></div>
+    </div>
+ 
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- Load React and dependencies -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.12/marked.min.js"></script>
-
-    <!-- React component script -->
-    <script>
-        // Create the component using React.createElement instead of JSX
-        function MarkdownDescription() {
-            // Create state manually since we're not using hooks
-            const [content, setContent] = React.useState('');
-
-            React.useEffect(() => {
-                const markdownContent = `
+<!-- Replace the existing script section -->
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        const markdownContent = `
 # Explore the Universe of Graduate Research at CMU! 🚀
 ## Introducing the KiltHub Thesis Explorer 🔭
 Ever wondered how your research connects to work across different departments? Curious about unexplored areas in your field? We're excited to introduce a new interactive visualization tool that maps the entire landscape of graduate research at CMU!
@@ -278,36 +271,24 @@ Visit this site to start exploring the CMU's graduate theses landscape!
 ---------------
 *This project is a collaboration between the University Libraries and the Tartan Research Data Alliance. Built with love for the Love Data Week 2025 and the CMU community.*
 
-TRDA members: Chekah Arora and Alfredo González-Espinoza
-                `;
+TRDA members: Chekah Arora and Alfredo González-Espinoza`;
 
-                marked.setOptions({
-                    breaks: true,
-                    gfm: true,
-                    headerIds: true,
-                    sanitize: false
-                });
-
-                const parsedContent = marked(markdownContent);
-                setContent(parsedContent);
-            }, []);
-
-            // Return the element
-            return React.createElement('div', {
-                id: 'description-content',
-                className: 'prose max-w-none',
-                dangerouslySetInnerHTML: { __html: content }
-            });
-        }
-
-        // Wait for DOM to load before rendering
-        window.addEventListener('DOMContentLoaded', function() {
-            ReactDOM.render(
-                React.createElement(MarkdownDescription),
-                document.getElementById('description-root')
-            );
+        // Configure marked
+        marked.setOptions({
+            breaks: true,
+            gfm: true
         });
-    </script>
+
+        try {
+            // Parse markdown and insert into DOM
+            const parsedContent = marked.parse(markdownContent);
+            document.getElementById('description-content').innerHTML = parsedContent;
+        } catch (error) {
+            console.error('Error parsing markdown:', error);
+            document.getElementById('description-content').innerHTML = 'Error loading content';
+        }
+    });
+</script>
 
     <!-- MathJax for any mathematical notation 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
